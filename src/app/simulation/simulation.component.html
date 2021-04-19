@@ -2,7 +2,7 @@
 <div *ngIf="simulationStep">
   <br>
   <div>
-    {{ asJson() }}
+    {{ asJson(simulationStep) }}
   </div>
   <br>
   <div>
@@ -32,6 +32,19 @@
       <button (click)="addPassengerImplicitly()">
         Add Passenger
       </button>
+    </div>
+    <div>
+      <button (click)="performSimulationNextStep()">
+        Perform Next Simulation Step
+      </button>
+    </div>
+    <div>
+      <button (click)="getSimulationStatus()">
+        Get Elevators Status
+      </button>
+    </div>
+    <div>
+      {{ asJson(elevatorStatuses) }}
     </div>
   </div>
 </div>

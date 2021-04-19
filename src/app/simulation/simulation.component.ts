@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {SimulationStepDto} from '../model/simulation-step.dto';
 import {StateUpdateRequestDto} from '../model/state-update-request.dto';
 import {SimulationService} from '../services/simulation.service';
+import {ElevatorDto} from '../model/elevator.dto';
 
 @Component({
   selector: 'app-simulation',
@@ -15,6 +16,7 @@ export class SimulationComponent implements OnChanges {
   updateRequest: StateUpdateRequestDto = new StateUpdateRequestDto(1, 0, 1);
   elevators: any;
   stores: any;
+  elevatorStatuses: ElevatorDto[] = [];
 
   constructor(private simulationService: SimulationService) {
   }
@@ -25,8 +27,8 @@ export class SimulationComponent implements OnChanges {
     }
   }
 
-  asJson(): string {
-    return JSON.stringify(this.simulationStep);
+  asJson(object: any): string {
+    return JSON.stringify(object);
   }
 
   addPassengerExplicitly(): void {
@@ -45,5 +47,19 @@ export class SimulationComponent implements OnChanges {
     this.elevators = this.simulationStep?.elevators;
     const storesNumber: number = this.simulationStep?.storesNo ? this.simulationStep?.storesNo : 0;
     this.stores = [...Array(storesNumber + 1).keys()];
+  }
+
+  performSimulationNextStep(): void {
+    this.simulationService.performNextSimulationStep()
+      .subscribe((simulationStep: SimulationStepDto) => {
+        this.stepChange.emit(simulationStep);
+      });
+  }
+
+  getSimulationStatus(): void {
+    this.simulationService.getSimulationStatus()
+      .subscribe((elevators: ElevatorDto[]) => {
+        this.elevatorStatuses = elevators;
+      });
   }
 }

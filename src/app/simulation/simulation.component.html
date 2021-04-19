@@ -29,6 +29,21 @@
     <br>
     <br>
     <div>
+      <label for="elevatorIdSecond">Elevator Id</label>
+      <select id="elevatorIdSecond" required
+              [(ngModel)]="updateRequest.elevatorId">
+        <option *ngFor="let elevator of elevators" [value]="elevator.id">{{elevator.id}}</option>
+      </select>
+      <label for="requestedStartStoreNo">Start Store Number</label>
+      <select id="requestedStartStoreNo" required
+              [(ngModel)]="updateRequest.currentStoreNo">
+        <option *ngFor="let store of stores" [value]="store">{{store}}</option>
+      </select>
+      <label for="direction">Direction</label>
+      <select id="direction" required
+              [(ngModel)]="updateRequest.targetStoreNo">
+        <option *ngFor="let direction of directions" [value]="direction">{{direction}}</option>
+      </select>
       <button (click)="addPassengerImplicitly()">
         Add Passenger
       </button>

@@ -3,6 +3,7 @@ import {SimulationStepDto} from '../model/simulation-step.dto';
 import {StateUpdateRequestDto} from '../model/state-update-request.dto';
 import {SimulationService} from '../services/simulation.service';
 import {ElevatorDto} from '../model/elevator.dto';
+import {StatePickupRequestDto} from '../model/state-pickup-request.dto';
 
 @Component({
   selector: 'app-simulation',
@@ -14,9 +15,11 @@ export class SimulationComponent implements OnChanges {
   @Output() stepChange: EventEmitter<SimulationStepDto> = new EventEmitter<SimulationStepDto>();
   @Input() simulationStep: SimulationStepDto | null = null;
   updateRequest: StateUpdateRequestDto = new StateUpdateRequestDto(1, 0, 1);
+  pickupRequest: StatePickupRequestDto = new StatePickupRequestDto(1, 1, 1);
   elevators: any;
   stores: any;
   elevatorStatuses: ElevatorDto[] = [];
+  directions: number[] = [-1 , 1];
 
   constructor(private simulationService: SimulationService) {
   }
@@ -39,7 +42,10 @@ export class SimulationComponent implements OnChanges {
   }
 
   addPassengerImplicitly(): void {
-
+    this.simulationService.addPassengerImplicitly(this.pickupRequest)
+      .subscribe((simulationStep: SimulationStepDto) => {
+        this.stepChange.emit(simulationStep);
+      });
   }
 
   private initSelectors(): void {

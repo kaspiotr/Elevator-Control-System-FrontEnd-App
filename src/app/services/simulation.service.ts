@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {SimulationStepDto} from '../model/simulation-step.dto';
 import {StateUpdateRequestDto} from '../model/state-update-request.dto';
 import {ElevatorDto} from '../model/elevator.dto';
+import {StatePickupRequestDto} from '../model/state-pickup-request.dto';
 
 const BASE_URL = 'http://localhost:8081';
 
@@ -33,6 +34,15 @@ export class SimulationService {
       .set('targetStoreNo', updateRequest.targetStoreNo);
     const headers = SimulationService.getHeaders();
     return this.http.get<SimulationStepDto>(BASE_URL + '/update', {params, headers});
+  }
+
+  addPassengerImplicitly(pickupRequest: StatePickupRequestDto): Observable<SimulationStepDto> {
+    const params = new HttpParams()
+      .set('elevatorId', pickupRequest.elevatorId)
+      .set('requestedStartStoreNo', pickupRequest.requestedStartStoreNo)
+      .set('direction', pickupRequest.direction);
+    const headers = SimulationService.getHeaders();
+    return this.http.get<SimulationStepDto>(BASE_URL + '/pickup', {params, headers});
   }
 
   performNextSimulationStep(): Observable<SimulationStepDto> {

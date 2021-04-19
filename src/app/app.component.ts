@@ -23,4 +23,8 @@ export class AppComponent {
       this.simulationStep = data;
     });
   }
+
+  updateStep(updatedStep: SimulationStepDto): void {
+    this.simulationStep = updatedStep;
+  }
 }

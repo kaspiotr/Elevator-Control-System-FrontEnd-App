@@ -1,6 +1,38 @@
 <div *ngIf="!simulationStep">Start the simulation</div>
 <div *ngIf="simulationStep">
-  <!--  TODO render -->
-  {{ asJson() }}
+  <br>
+  <div>
+    {{ asJson() }}
+  </div>
+  <br>
+  <div>
+    <div>
+      <label for="elevatorId">Elevator Id</label>
+      <select id="elevatorId" required
+              [(ngModel)]="updateRequest.elevatorId">
+        <option *ngFor="let elevator of elevators" [value]="elevator.id">{{elevator.id}}</option>
+      </select>
+      <label for="currentStoreNo">Start Store Number</label>
+      <select id="currentStoreNo" required
+              [(ngModel)]="updateRequest.currentStoreNo">
+        <option *ngFor="let store of stores" [value]="store">{{store}}</option>
+      </select>
+      <label for="targetStoreNo">Target Store Number</label>
+      <select id="targetStoreNo" required
+              [(ngModel)]="updateRequest.targetStoreNo">
+        <option *ngFor="let store of stores" [value]="store">{{store}}</option>
+      </select>
+      <button (click)="addPassengerExplicitly()">
+        Add Passenger
+      </button>
+    </div>
+    <br>
+    <br>
+    <div>
+      <button (click)="addPassengerImplicitly()">
+        Add Passenger
+      </button>
+    </div>
+  </div>
 </div>
 

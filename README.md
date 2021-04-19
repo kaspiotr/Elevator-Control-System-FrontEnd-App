@@ -1,4 +1,13 @@
-# Elevatorcontrolsystemfrondend
+# Elevator Control System Frontend App
+
+## How to run the application
+
+Go to the directory where you've cloned the application
+and run following commands in that directory:
+```
+npm install
+npm start
+```
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
 
